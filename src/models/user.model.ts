@@ -1,5 +1,5 @@
-import pool from "../config/db.config.ts";
-import { CreateUser, User, UserGroup } from "../interfaces/user.interface.ts";
+import pool from "../config/db.config.js";
+import { CreateUser, User, UserGroup } from "../interfaces/user.interface.js";
 import { genSalt, hash } from "bcrypt-ts";
 
 class UserModel {

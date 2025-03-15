@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
-import userModel from '../models/user.model.ts'
-import { ResponseService } from '../interfaces/response.interface.ts'
-import groupModel from '../models/group.model.ts'
-import { UserGroup } from '../interfaces/user.interface.ts'
-import { UserCountGroup } from '../interfaces/group.interface.ts'
+import userModel from '../models/user.model.js'
+import { ResponseService } from '../interfaces/response.interface.js'
+import groupModel from '../models/group.model.js'
+import { UserGroup } from '../interfaces/user.interface.js'
+import { UserCountGroup } from '../interfaces/group.interface.js'
 
 
 export const getUsers = async (_req: Request, res: Response, next: NextFunction) => {

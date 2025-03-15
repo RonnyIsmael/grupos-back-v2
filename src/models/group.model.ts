@@ -1,5 +1,5 @@
-import pool from "../config/db.config.ts";
-import { CountUser } from "../interfaces/group.interface.ts";
+import pool from "../config/db.config.js";
+import { CountUser } from "../interfaces/group.interface.js";
 
 class GroupModel {
     async countUsersByGroupId(groupId: number): Promise<CountUser> {

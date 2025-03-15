@@ -1,5 +1,5 @@
-import app from './app.ts'
-import { connectDB } from './config/db.config.ts'
+import app from './app.js'
+import { connectDB } from './config/db.config.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
