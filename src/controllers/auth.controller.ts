@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
-import userModel from '../models/user.model.ts'
-import { LoginUser, User } from '../interfaces/user.interface.ts'
-import { ResponseService } from '../interfaces/response.interface.ts'
+import userModel from '../models/user.model.js'
+import { LoginUser, User } from '../interfaces/user.interface.js'
+import { ResponseService } from '../interfaces/response.interface.js'
 import { compare } from "bcrypt-ts"
-import { generateToken } from '../config/jwt.config.ts'
-import { AuthRequest } from '../middlewares/auth.middleware.ts'
+import { generateToken } from '../config/jwt.config.js'
+import { AuthRequest } from '../middlewares/auth.middleware.js'
 
 
 export const loging = async (req: Request, res: Response, next: NextFunction) => {

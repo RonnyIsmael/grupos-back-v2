@@ -1,10 +1,10 @@
 import express from 'express'
 import cors from 'cors'
-import userRoutes from './routes/user.routes.ts'
-import authRoutes from './routes/auth.routes.ts'
-import { errorHandler } from './middlewares/errorHandler.ts'
+import userRoutes from './routes/user.routes.js'
+import authRoutes from './routes/auth.routes.js'
+import { errorHandler } from './middlewares/errorHandler.js'
 import cookieParser from 'cookie-parser'
-import groupRoutes from './routes/group.routes.ts'
+import groupRoutes from './routes/group.routes.js'
 
 const app = express()
 

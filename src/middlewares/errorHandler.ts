@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { ZodError } from 'zod'
-import { AppError } from '../utils/AppError.ts'
+import { AppError } from '../utils/AppError.js'
 
 interface CustomError extends Error {
   status?: number
@@ -25,12 +25,12 @@ export const errorHandler = (
       errors,
     })
 
-  }else if (err instanceof AppError) {
+  } else if (err instanceof AppError) {
     res.status(err.statusCode).json({
       success: false,
       message: err.message,
     })
-  } else{
+  } else {
     console.log('error')
     res.status(statusCode).json({
       success: false,

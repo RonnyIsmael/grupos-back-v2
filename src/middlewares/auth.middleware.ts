@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
-import { verifyToken } from '../config/jwt.config.ts'
-import { AppError } from '../utils/AppError.ts'
+import { verifyToken } from '../config/jwt.config.js'
+import { AppError } from '../utils/AppError.js'
 
 export interface AuthRequest extends Request {
     user?: { userId: number }

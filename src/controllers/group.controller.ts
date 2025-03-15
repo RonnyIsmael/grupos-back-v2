@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import groupModel from '../models/group.model.ts'
+import groupModel from '../models/group.model.js'
 
 export const getUsersGroup = async (req: Request, res: Response, next: NextFunction) => {
     try {
