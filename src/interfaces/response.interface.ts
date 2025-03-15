@@ -1,6 +1,6 @@
 
 export interface ResponseService {
-    status?: string
+    succes?: boolean
     msg?: string
     body?: any
 

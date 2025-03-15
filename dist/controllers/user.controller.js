@@ -25,7 +25,7 @@ export const getUserGroups = async (req, res, next) => {
         }));
         console.log(groups);
         responseService = {
-            status: 'OK',
+            succes: true,
             body: userGroups
         };
         res.json(responseService);

@@ -20,8 +20,8 @@ export const errorHandler = (
       message: e.message,
     }))
 
-    res.status(400).json({
-      success: false,
+    res.status(200).json({
+      succes: false,
       errors,
     })
 
@@ -31,7 +31,7 @@ export const errorHandler = (
       message: err.message,
     })
   } else {
-    console.log('error')
+    console.log(err.message)
     res.status(statusCode).json({
       success: false,
       message: err.message || 'Ocurrió un error inesperado.',

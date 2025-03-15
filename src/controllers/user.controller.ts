@@ -36,7 +36,7 @@ export const getUserGroups = async (req: Request, res: Response, next: NextFunct
         console.log(groups)
 
         responseService = {
-            status: 'OK',
+            succes: true,
             body: userGroups
         }
         res.json(responseService)
