@@ -10,16 +10,19 @@ class UserModel {
         const { user_name, email, password } = user;
         const hashedPassword = await hash(password, salt);
         const { rows } = await pool.query("INSERT INTO users (user_name, email, password) VALUES ($1, $2, $3) RETURNING *", [user_name, email, hashedPassword]);
-        return rows[0];
+        const rowsInsertado = await pool.query("SELECT u.*, a.url as avatar FROM users u, avatar a where u.avatar_id = a.id and u.id = $1", [
+            rows[0].id,
+        ]);
+        return rowsInsertado.rows[0];
     }
     async findByEmail(email) {
-        const { rows } = await pool.query("SELECT * FROM users WHERE email = $1", [
+        const { rows } = await pool.query("SELECT u.*, a.url as avatar FROM users u, avatar a where u.avatar_id = a.id and u.email = $1", [
             email,
         ]);
         return rows[0] || null;
     }
     async findById(id) {
-        const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
+        const { rows } = await pool.query("SELECT u.*, a.url as avatar FROM users u, avatar a where u.avatar_id = a.id and u.id = $1", [
             id,
         ]);
         return rows[0] || null;

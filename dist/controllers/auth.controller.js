@@ -22,6 +22,7 @@ export const loging = async (req, res, next) => {
         const { password: _, ...userData } = user;
         response = { succes: true, body: userData };
         const token = generateToken(user.id);
+        console.log(user);
         res
             .cookie('acces_token', token, {
             httpOnly: true,
@@ -57,12 +58,14 @@ export const register = async (req, res, next) => {
     }
 };
 export const logout = async (_req, res, next) => {
+    console.log('Deleting session...');
     res.clearCookie('acces_token', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'PROD',
         sameSite: 'strict',
     });
     res.json({ success: true, message: 'Session closed.' });
+    console.log('Session killed');
 };
 export const session = async (req, res, next) => {
     try {

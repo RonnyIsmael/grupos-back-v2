@@ -28,6 +28,7 @@ export const loging = async (req: Request, res: Response, next: NextFunction) =>
         const { password: _, ...userData }: User = user
         response = { succes: true, body: userData }
         const token = generateToken(user.id);
+        console.log(user)
 
         res
             .cookie('acces_token', token, {
@@ -65,6 +66,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 }
 
 export const logout = async (_req: Request, res: Response, next: NextFunction) => {
+    console.log('Deleting session...')
     res.clearCookie('acces_token', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'PROD',
@@ -72,7 +74,7 @@ export const logout = async (_req: Request, res: Response, next: NextFunction) =
     })
 
     res.json({ success: true, message: 'Session closed.' })
-
+    console.log('Session killed')
 }
 export const session = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
