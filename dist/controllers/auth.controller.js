@@ -2,7 +2,7 @@ import userModel from '../models/user.model.js';
 import { compare } from "bcrypt-ts";
 import { generateToken } from '../config/jwt.config.js';
 export const loging = async (req, res, next) => {
-    console.log('Start login');
+    console.log('Init login');
     try {
         let response = {};
         const { email, password } = req.body;
@@ -22,11 +22,10 @@ export const loging = async (req, res, next) => {
         const { password: _, ...userData } = user;
         response = { succes: true, body: userData };
         const token = generateToken(user.id);
-        console.log(user);
         res
             .cookie('acces_token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'PROD', // TODO cambiar true para produccion con una variable de entorno
+            secure: process.env.NODE_ENV === 'PROD',
             sameSite: 'strict',
             maxAge: 1000 * 60 * 60,
         })
@@ -40,6 +39,7 @@ export const loging = async (req, res, next) => {
     console.log('End login');
 };
 export const register = async (req, res, next) => {
+    console.log('Init register');
     try {
         let response = {};
         const newUser = await userModel.create(req.body);
@@ -56,6 +56,7 @@ export const register = async (req, res, next) => {
     catch (error) {
         next(error);
     }
+    console.log('End register');
 };
 export const logout = async (_req, res, next) => {
     console.log('Deleting session...');
@@ -68,6 +69,7 @@ export const logout = async (_req, res, next) => {
     console.log('Session killed');
 };
 export const session = async (req, res, next) => {
+    console.log('Init session');
     try {
         console.log('Inicio check session');
         let response = {};
@@ -87,5 +89,5 @@ export const session = async (req, res, next) => {
     catch (error) {
         next(error);
     }
-    console.log('Fin check session');
+    console.log('End session');
 };

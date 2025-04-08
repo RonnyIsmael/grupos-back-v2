@@ -1,9 +1,11 @@
 import { Router } from 'express'
 import { authenticate } from '../middlewares/auth.middleware.js'
-import { getUsersGroup } from '../controllers/group.controller.js'
+import { getUsersGroup, getGroupById, addGroup, addUsersToGroup } from '../controllers/group.controller.js'
 const router = Router()
 
-// cantidad de usuarios de un grupo
 router.get('/count/users/:id', authenticate, getUsersGroup)
+router.get('/:id', authenticate, getGroupById)
+router.post('/add', authenticate, addGroup)
+router.post('/add/users', authenticate, addUsersToGroup)
 
 export default router

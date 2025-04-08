@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import userModel from '../models/user.model.js'
 import { ResponseService } from '../interfaces/response.interface.js'
 import groupModel from '../models/group.model.js'
-import { UserGroup } from '../interfaces/user.interface.js'
+import { UserItem, UserGroup } from '../interfaces/user.interface.js'
 import { UserCountGroup } from '../interfaces/group.interface.js'
 
 
@@ -16,6 +16,7 @@ export const getUsers = async (_req: Request, res: Response, next: NextFunction)
 
 }
 export const getUserGroups = async (req: Request, res: Response, next: NextFunction) => {
+    console.log('Init getUserGroups')
     try {
         let responseService: ResponseService = {}
         const userId = Number(req.params.id)
@@ -28,12 +29,12 @@ export const getUserGroups = async (req: Request, res: Response, next: NextFunct
                     id: element.group_id,
                     name: element.group_name,
                     avatar: element.avatar_group,
+                    sport: element.sport_group,
+                    owner: element.owner_group,
                     userNumbers: userNumbers.num_users
                 };
             })
         );
-
-        console.log(groups)
 
         responseService = {
             succes: true,
@@ -43,5 +44,21 @@ export const getUserGroups = async (req: Request, res: Response, next: NextFunct
     } catch (error) {
         next(error)
     }
-
+    console.log('End getUserGroups')
+}
+export const getUserFriends = async (req: Request, res: Response, next: NextFunction) => {
+    console.log('Init getUserFriends')
+    try {
+        let responseService: ResponseService = {}
+        const userId = Number(req.params.id)
+        const freinds: UserItem[] = await userModel.findUserFriends(userId)
+        responseService = {
+            succes: true,
+            body: freinds
+        }
+        res.json(responseService)
+    } catch (error) {
+        next(error)
+    }
+    console.log('End getUserFriends')
 }

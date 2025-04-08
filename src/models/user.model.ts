@@ -1,5 +1,5 @@
 import pool from "../config/db.config.js";
-import { CreateUser, User, UserGroup } from "../interfaces/user.interface.js";
+import { CreateUser, UserItem, User, UserGroup } from "../interfaces/user.interface.js";
 import { genSalt, hash } from "bcrypt-ts";
 
 class UserModel {
@@ -41,8 +41,17 @@ class UserModel {
 
   async findGroupsbyUserId(userId: number): Promise<UserGroup[]> {
     const { rows } = await pool.query(
-      "select rugg.*, gg.name group_name, a.url  avatar_group from rel_user_game_group rugg, game_group gg, avatar a  where rugg.group_id = gg.id and gg.avatar_id = a.id and  rugg.user_id = $1;",
+      "select rugg.*, gg.name group_name, gg.user_id as owner_group , a.url avatar_group, s.name sport_group from rel_user_game_group rugg, game_group gg, avatar a, sport s  where rugg.group_id = gg.id and gg.avatar_id = a.id and s.id = gg.sport_id and rugg.user_id = $1;",
       [userId]
+    );
+    return rows;
+  }
+
+  async findUserFriends(user_id: number): Promise<UserItem[]> {
+
+    const { rows } = await pool.query(
+      "select  u.id, u.user_name, a.url avatar  from rel_user_user ruu, users u, avatar a  where a.id = u.avatar_id and  ruu.userfriend = u.id and ruu.userid = $1;",
+      [user_id]
     );
     return rows;
   }

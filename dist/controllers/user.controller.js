@@ -10,6 +10,7 @@ export const getUsers = async (_req, res, next) => {
     }
 };
 export const getUserGroups = async (req, res, next) => {
+    console.log('Init getUserGroups');
     try {
         let responseService = {};
         const userId = Number(req.params.id);
@@ -20,10 +21,11 @@ export const getUserGroups = async (req, res, next) => {
                 id: element.group_id,
                 name: element.group_name,
                 avatar: element.avatar_group,
+                sport: element.sport_group,
+                owner: element.owner_group,
                 userNumbers: userNumbers.num_users
             };
         }));
-        console.log(groups);
         responseService = {
             succes: true,
             body: userGroups
@@ -33,4 +35,22 @@ export const getUserGroups = async (req, res, next) => {
     catch (error) {
         next(error);
     }
+    console.log('End getUserGroups');
+};
+export const getUserFriends = async (req, res, next) => {
+    console.log('Init getUserFriends');
+    try {
+        let responseService = {};
+        const userId = Number(req.params.id);
+        const freinds = await userModel.findUserFriends(userId);
+        responseService = {
+            succes: true,
+            body: freinds
+        };
+        res.json(responseService);
+    }
+    catch (error) {
+        next(error);
+    }
+    console.log('End getUserFriends');
 };

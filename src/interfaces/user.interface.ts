@@ -9,11 +9,19 @@ export interface User {
   avatar: Avatar
 }
 
+export interface UserItem {
+  id: number
+  user_name: string
+  avatar: Avatar
+}
+
 export interface UserGroup {
   user_id: number
   group_id: number
   group_name: string
   avatar_group: string
+  owner_group: any
+  sport_group: string
 }
 
 export interface CreateUser {

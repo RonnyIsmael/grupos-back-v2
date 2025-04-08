@@ -8,7 +8,7 @@ import { AuthRequest } from '../middlewares/auth.middleware.js'
 
 
 export const loging = async (req: Request, res: Response, next: NextFunction) => {
-    console.log('Start login')
+    console.log('Init login')
     try {
         let response: ResponseService = {};
         const { email, password }: LoginUser = req.body;
@@ -28,12 +28,11 @@ export const loging = async (req: Request, res: Response, next: NextFunction) =>
         const { password: _, ...userData }: User = user
         response = { succes: true, body: userData }
         const token = generateToken(user.id);
-        console.log(user)
 
         res
             .cookie('acces_token', token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'PROD', // TODO cambiar true para produccion con una variable de entorno
+                secure: process.env.NODE_ENV === 'PROD',
                 sameSite: 'strict',
                 maxAge: 1000 * 60 * 60,
             })
@@ -47,6 +46,7 @@ export const loging = async (req: Request, res: Response, next: NextFunction) =>
 
 }
 export const register = async (req: Request, res: Response, next: NextFunction) => {
+    console.log('Init register')
     try {
         let response: ResponseService = {};
         const newUser = await userModel.create(req.body)
@@ -62,7 +62,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     } catch (error) {
         next(error)
     }
-
+    console.log('End register')
 }
 
 export const logout = async (_req: Request, res: Response, next: NextFunction) => {
@@ -77,6 +77,7 @@ export const logout = async (_req: Request, res: Response, next: NextFunction) =
     console.log('Session killed')
 }
 export const session = async (req: AuthRequest, res: Response, next: NextFunction) => {
+    console.log('Init session')
     try {
         console.log('Inicio check session')
         let response: ResponseService = {};
@@ -98,5 +99,5 @@ export const session = async (req: AuthRequest, res: Response, next: NextFunctio
     } catch (error) {
         next(error)
     }
-    console.log('Fin check session')
+    console.log('End session')
 }
